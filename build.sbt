@@ -6,7 +6,7 @@ organization := "michaelyaakoby.github.io"
 
 version in ThisBuild := "1.0.0"
 
-scalaVersion := "2.12.4"
+scalaVersion := "2.12.6"
 
 scalacOptions ++= Seq(
   "-unchecked",
@@ -28,17 +28,18 @@ parallelExecution in Test := false
 
 updateOptions := updateOptions.value.withCachedResolution(true)
 
-val akkaActorVer = "2.5.6"
+val akkaActorVer = "2.5.16"
 
 libraryDependencies ++= Seq(
-  "com.github.pathikrit"       %% "better-files"               % "2.17.1",
+  "com.github.pathikrit"       %% "better-files"               % "3.6.0",
   "com.google.guava"           % "guava"                       % "23.0",
+  "com.google.code.findbugs"   % "jsr305"                      % "3.0.2" % "compile",
   "com.bluejeans.common"       % "bigqueue"                    % "1.7.0.5",
   "com.typesafe.akka"          %% "akka-stream"                % akkaActorVer,
   "com.typesafe.akka"          %% "akka-actor"                 % akkaActorVer,
   "com.typesafe.akka"          %% "akka-slf4j"                 % akkaActorVer,
-  "com.typesafe.scala-logging" %% "scala-logging"              % "3.7.2",
+  "com.typesafe.scala-logging" %% "scala-logging"              % "3.9.0",
   "ch.qos.logback"             % "logback-classic"             % "1.2.3",
-  "org.scalatest"              %% "scalatest"                  % "3.0.4" % "test"
+  "org.scalatest"              %% "scalatest"                  % "3.0.5" % "test"
 )
 
