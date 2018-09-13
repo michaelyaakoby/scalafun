@@ -13,7 +13,7 @@ import com.typesafe.scalalogging.StrictLogging
 import scala.concurrent.{ExecutionContext, Future}
 import scala.util.Try
 
-class DirScannerSource(root: Path, offHeapDir: Path = Paths.get("target/fscanner"), concurrentScanners: Int = 64)(implicit ec: ExecutionContext) extends StrictLogging {
+class DirScannerSource(root: Path, offHeapDir: Path, concurrentScanners: Int = 64)(implicit ec: ExecutionContext) extends StrictLogging {
 
   private val queue = new PendingDirsQueue(offHeapDir)
   queue.enqueue(root)
@@ -97,7 +97,7 @@ class DirScannerSource(root: Path, offHeapDir: Path = Paths.get("target/fscanner
         out,
         new OutHandler {
           override def onPull(): Unit =
-            Future.fromTry(tryOpen().flatMap(tryHasNext).map(tryNext)).recover { case t: Throwable => t.printStackTrace() }
+            Future.fromTry(tryOpen().flatMap(tryHasNext).map(tryNext)).recover { case t: Throwable => failStage(t) }
         }
       )
     }
